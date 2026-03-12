@@ -1,0 +1,65 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Mar 12 19:22:54 2026
+
+@author: Viki
+"""
+
+def push(stack, item):
+    stack.append(item)
+
+def pop(stack):
+    return stack.pop()
+
+def isEmpty(stack):
+    return len(stack) == 0
+
+def createStack():
+    return []
+
+
+ON = createStack()     # ονόματα προϊόντων
+TM = createStack()     # τιμές προϊόντων
+
+count = 0
+synolikiaksia = 0
+anaireseis = 0
+
+kinish = input("Εισαγωγή κίνησης (BUY / CANCEL / END): ")
+
+while kinish != "END":
+
+    if kinish == "BUY":
+        onoma = input("Εισαγωγή προϊόντος: ")
+        timi = int(input("Εισαγωγή τιμής: "))
+
+        push(ON, onoma)
+        push(TM, timi)
+
+        count += 1
+        synolikiaksia += timi
+
+    elif kinish == "CANCEL":
+        if not isEmpty(ON):
+            anaireseis += 1
+            onoma = pop(ON)
+            timi = pop(TM)
+
+            count -= 1
+            synolikiaksia -= timi
+
+            print("Αφαιρέθηκε το προϊόν:", onoma)
+
+        else:
+            print("Το καλάθι αγορών είναι άδειο")
+
+    kinish = input("Εισαγωγή κίνησης (BUY / CANCEL / END): ")
+
+
+print("\n--- Καλάθι Αγορών ---")
+print("Προϊόντα:", ON)
+print("Τιμές:", TM)
+
+print("Πλήθος προϊόντων:", count)
+print("Συνολική αξία:", synolikiaksia)
+print("Ακυρώσεις:", anaireseis)
